@@ -9,7 +9,7 @@ import UIKit
 import AVFoundation
 
 class ViewController: UIViewController {
-    private lazy var indexForButton = 1
+    private lazy var buttonIndex = 1
     private lazy var currentViewPlace = 1
     private var softEggView = UIView(), medEggView = UIView(), hardEggView = UIView()
 
@@ -79,29 +79,29 @@ class ViewController: UIViewController {
                 eggStackView.translatesAutoresizingMaskIntoConstraints = false
                 eggStackView.centerXAnchor.constraint(equalTo: mainStackView.centerXAnchor).isActive = true
                 let eggViews = [ softEggView, medEggView, hardEggView ]
-                for indexForButton in 0..<eggViews.count {
-                    eggStackView.addArrangedSubview(eggViews[indexForButton])
-                    eggViews[indexForButton].translatesAutoresizingMaskIntoConstraints = false
-                    eggViews[indexForButton].centerYAnchor.constraint(equalTo: eggStackView.centerYAnchor).isActive = true
-                    let imageView = UIImageView.init(image: UIImage(named: eggImageNames[indexForButton]) ?? UIImage())
+                for buttonIndex in 0..<eggViews.count {
+                    eggStackView.addArrangedSubview(eggViews[buttonIndex])
+                    eggViews[buttonIndex].translatesAutoresizingMaskIntoConstraints = false
+                    eggViews[buttonIndex].centerYAnchor.constraint(equalTo: eggStackView.centerYAnchor).isActive = true
+                    let imageView = UIImageView.init(image: UIImage(named: eggImageNames[buttonIndex]) ?? UIImage())
                     imageView.contentMode = .scaleAspectFit
                     imageView.translatesAutoresizingMaskIntoConstraints = false
-                    eggViews[indexForButton].addSubview(imageView)
+                    eggViews[buttonIndex].addSubview(imageView)
                     NSLayoutConstraint.activate([
-                        imageView.leadingAnchor.constraint(equalTo: eggViews[indexForButton].leadingAnchor),
-                        imageView.trailingAnchor.constraint(equalTo: eggViews[indexForButton].trailingAnchor),
-                        imageView.bottomAnchor.constraint(equalTo: eggViews[indexForButton].bottomAnchor),
-                        imageView.topAnchor.constraint(equalTo: eggViews[indexForButton].topAnchor)
+                        imageView.leadingAnchor.constraint(equalTo: eggViews[buttonIndex].leadingAnchor),
+                        imageView.trailingAnchor.constraint(equalTo: eggViews[buttonIndex].trailingAnchor),
+                        imageView.bottomAnchor.constraint(equalTo: eggViews[buttonIndex].bottomAnchor),
+                        imageView.topAnchor.constraint(equalTo: eggViews[buttonIndex].topAnchor)
                     ])
                     let eggButton = UIButton()
-                    eggButton.setTitle(eggNames[indexForButton], for: .normal)
+                    eggButton.setTitle(eggNames[buttonIndex], for: .normal)
                     eggButton.setTitleColor(.white, for: .normal)
                     eggButton.titleLabel?.font = UIFont.systemFont(ofSize: Constants.buttonFontSize, weight: .black)
-                    eggViews[indexForButton].addSubview(eggButton)
+                    eggViews[buttonIndex].addSubview(eggButton)
                     eggButton.translatesAutoresizingMaskIntoConstraints = false
-                    eggButton.centerXAnchor.constraint(equalTo: eggViews[indexForButton].centerXAnchor).isActive = true
-                    eggButton.centerYAnchor.constraint(equalTo: eggViews[indexForButton].centerYAnchor).isActive = true
-                    eggButton.tag = indexForButton
+                    eggButton.centerXAnchor.constraint(equalTo: eggViews[buttonIndex].centerXAnchor).isActive = true
+                    eggButton.centerYAnchor.constraint(equalTo: eggViews[buttonIndex].centerYAnchor).isActive = true
+                    eggButton.tag = buttonIndex
                     eggButton.addTarget(self, action: #selector(buttonPressed(sender:)), for: .touchUpInside)
                 }
                 currentViewPlace += 1
@@ -139,7 +139,7 @@ class ViewController: UIViewController {
             print("\(currentTime) seconds.")
         } else {
             playSound(soundName: "engDone")
-//            playSound(soundName: "rusDone") //try this :)
+//            playSound(soundName: "rusDone") // try this :)
             titleLabel.text = "Done!"
             timer.invalidate()
         }
